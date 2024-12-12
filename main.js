@@ -5,7 +5,89 @@ const btnReiniciar = document.querySelector("#btnReiniciar");
 const btnHistorico = document.querySelector("#btnHistorico");
 const listaHistorico = document.querySelector("#listaHistorico");
 const btnLimparHistorico = document.querySelector("#btnLimparHistorico");
+const btnBuscar = document.querySelector("#btnBuscar");
+const selectTipo = document.querySelector("#selectTipo");
+const resultadoTipo = document.querySelector("#resultadoTipo");
 let historicoPokemons = [];
+
+const MENSAGENS = {
+    ERRO_BUSCA: "Não foi possível identificar o pokemon, favor verificar a escrita",
+    ERRO_HABILIDADE: "Não foi possível identificar a habilidade, favor verificar a escrita",
+    ERRO_TIPO: "Tipo de Pokémon não encontrado. Verifique a escrita.",
+    ERRO_GERAL: "Erro ao realizar a busca. Por favor, tente novamente."
+};
+
+class HistoricoPokemon {
+    constructor() {
+        this.historico = [];
+        this.maxItens = 20; // Limite de itens no histórico
+    }
+
+    adicionar(pokemon) {
+        if (!this.historico.some(p => p.nome === pokemon.nome)) {
+            this.historico.unshift(pokemon);
+            if (this.historico.length > this.maxItens) {
+                this.historico.pop();
+            }
+            this.salvar();
+            this.atualizar();
+        }
+    }
+
+    salvar() {
+        localStorage.setItem('historicoPokemons', JSON.stringify(this.historico));
+    }
+
+    carregar() {
+        const dados = localStorage.getItem('historicoPokemons');
+        if (dados) {
+            this.historico = JSON.parse(dados);
+            this.atualizar();
+        }
+    }
+
+    limpar() {
+        this.historico = [];
+        localStorage.removeItem('historicoPokemons');
+        this.atualizar();
+    }
+
+    atualizar() {
+        // Atualizar a interface
+        listaHistorico.innerHTML = this.historico
+            .map(pokemon => `
+                <li onclick="mostrarPokemon(${JSON.stringify(pokemon)})">${pokemon.nome}</li>
+            `)
+            .join('');
+    }
+}
+
+const traducoes = {
+    // Tipos
+    fire: "Fogo",
+    water: "Água",
+    grass: "Planta",
+    electric: "Elétrico",
+    psychic: "Psíquico",
+    ice: "Gelo",
+    dragon: "Dragão",
+    dark: "Sombrio",
+    fairy: "Fada",
+    normal: "Normal",
+    fighting: "Lutador",
+    flying: "Voador",
+    poison: "Venenoso",
+    ground: "Terra",
+    rock: "Pedra",
+    bug: "Inseto",
+    ghost: "Fantasma",
+    steel: "Aço",
+
+};
+
+function traduzir(texto) {
+    return traducoes[texto.toLowerCase()] || texto;
+}
 
 function mostrarErro(mensagem) {
     info.style.display = 'none';
@@ -20,13 +102,13 @@ async function buscarPokemon(busca, modoBusca) {
         if (modoBusca === 'nome') {
             resultado = await fetch("https://pokeapi.co/api/v2/pokemon/" + busca.toLowerCase());
             if (!resultado.ok) {
-                mostrarErro("Não foi possível identificar o pokemon, favor verificar a escrita");
+                mostrarErro(MENSAGENS.ERRO_BUSCA);
                 return null;
             }
         } else {
             resultado = await buscarPorHabilidade(busca);
             if (!resultado) {
-                mostrarErro("Não foi possível identificar a habilidade, favor verificar a escrita");
+                mostrarErro(MENSAGENS.ERRO_HABILIDADE);
                 return null;
             }
         }
@@ -34,25 +116,31 @@ async function buscarPokemon(busca, modoBusca) {
         const dados = await resultado.json();
         return await montarDadosPokemon(dados);
     } catch (erro) {
-        mostrarErro("Erro ao realizar a busca. Por favor, tente novamente.");
+        mostrarErro(MENSAGENS.ERRO_GERAL);
         return null;
+    }
+}
+
+async function realizarBusca() {
+    const busca = input.value.trim();
+    if (!busca) return;
+
+    const modoBusca = document.querySelector('input[name="modo"]:checked').value;
+    const pokemon = await buscarPokemon(busca, modoBusca);
+    
+    if (pokemon) {
+        mostrarPokemon(pokemon);
+        mensagemErro.style.display = 'none';
     }
 }
 
 input.addEventListener("keypress", async (event) => {
     if (event.key === "Enter") {
-        const busca = event.target.value.trim();
-        if (!busca) return;
-
-        const modoBusca = document.querySelector('input[name="modo"]:checked').value;
-        const pokemon = await buscarPokemon(busca, modoBusca);
-        
-        if (pokemon) {
-            mostrarPokemon(pokemon);
-            mensagemErro.style.display = 'none';
-        }
+        realizarBusca();
     }
 });
+
+btnBuscar.addEventListener("click", realizarBusca);
 
 function mostrarPokemon(pokemon) {
     let evolutionHtml = '';
@@ -74,13 +162,13 @@ function mostrarPokemon(pokemon) {
     }
 
     info.innerHTML = `
-        <h1>${pokemon.nome}</h1>
+        <h1>Nº ${pokemon.id.toString().padStart(3, '0')} - ${pokemon.nome}</h1>
         <img src="${pokemon.imagem}" alt="${pokemon.nome}" class="pokemon-principal">
         <p>Altura: ${pokemon.altura} metros</p>
         <p>Peso: ${pokemon.peso} kg</p>
-        <p>Tipos: ${pokemon.tipos.join(", ")}</p>
-        <p>Fraquezas: ${pokemon.fraquezas.join(", ")}</p>
-        <p>Habilidades: ${pokemon.habilidades.join(", ")}</p>
+        <p>Tipos: ${pokemon.tipos.map(tipo => traduzir(tipo)).join(", ")}</p>
+        <p>Fraquezas: ${pokemon.fraquezas.map(fraqueza => traduzir(fraqueza)).join(", ")}</p>
+        <p>Habilidades: ${pokemon.habilidades.map(habilidade => traduzir(habilidade)).join(", ")}</p>
         ${evolutionHtml}
     `;
     info.style.display = 'block';
@@ -114,6 +202,7 @@ async function montarDadosPokemon(dados) {
     const evolucoes = await buscarEvolucoes(especieUrl);
     
     return {
+        id: dados.id,
         nome: dados.name,
         imagem: dados.sprites.front_default,
         altura: (dados.height / 10).toFixed(1),
@@ -252,3 +341,67 @@ btnLimparHistorico.addEventListener("click", () => {
         limparHistorico();
     }
 });
+
+async function buscarPokemonsPorTipo(tipo) {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/type/${tipo.toLowerCase()}`);
+        if (!response.ok) {
+            throw new Error('Tipo não encontrado');
+        }
+        const data = await response.json();
+        
+        // Pegar os primeiros 10 Pokémon
+        const top10Pokemons = await Promise.all(
+            data.pokemon
+                .slice(0, 10)
+                .map(async (p) => {
+                    const pokemonResponse = await fetch(p.pokemon.url);
+                    return pokemonResponse.json();
+                })
+        );
+
+        return top10Pokemons;
+    } catch (error) {
+        mostrarErro(MENSAGENS.ERRO_TIPO);
+        return null;
+    }
+}
+
+function mostrarPokemonsTipo(pokemons) {
+    if (!pokemons) return;
+
+    resultadoTipo.innerHTML = pokemons.map(pokemon => `
+        <div class="pokemon-tipo-card" onclick="buscarEClicarPokemon('${pokemon.name}')">
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+            <h3>${pokemon.name}</h3>
+            <p>Nº ${pokemon.id.toString().padStart(3, '0')}</p>
+        </div>
+    `).join('');
+
+    resultadoTipo.style.display = 'grid';
+}
+
+selectTipo.addEventListener("change", async () => {
+    const tipo = selectTipo.value;
+    if (!tipo) {
+        resultadoTipo.style.display = 'none';
+        return;
+    }
+
+    const pokemons = await buscarPokemonsPorTipo(tipo);
+    if (pokemons) {
+        mostrarPokemonsTipo(pokemons);
+    }
+});
+
+function mostrarLoading(mostrar = true) {
+    const loading = document.createElement('div');
+    loading.id = 'loading';
+    loading.innerHTML = 'Carregando...';
+    
+    if (mostrar) {
+        document.body.appendChild(loading);
+    } else {
+        document.getElementById('loading')?.remove();
+    }
+}

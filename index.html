@@ -14,7 +14,8 @@
         <button id="btnHistorico">Histórico de Pesquisas ▼</button>
         <ul id="listaHistorico" class="historico-lista"></ul>
     </div>
-    <input type="text" id="busca" placeholder="Insira o nome do Pokémon ou habilidade e aperte enter">
+    <input type="text" id="busca" placeholder="Insira a informação do pokemon&#10;(nome, habilidade ou tipo)">
+    <button id="btnBuscar">Buscar Pokémon</button>
     <div id="info"></div>
     <div id="modo-busca">
         <label>
@@ -25,6 +26,31 @@
         </label>
     </div>
     <div id="mensagem-erro"></div>
+    <div class="tipo-busca-container">
+        <h2>Buscar por Tipo</h2>
+        <select id="selectTipo" class="select-tipo">
+            <option value="">Selecione um tipo</option>
+            <option value="fire">Fogo</option>
+            <option value="water">Água</option>
+            <option value="grass">Planta</option>
+            <option value="electric">Elétrico</option>
+            <option value="psychic">Psíquico</option>
+            <option value="ice">Gelo</option>
+            <option value="dragon">Dragão</option>
+            <option value="dark">Sombrio</option>
+            <option value="fairy">Fada</option>
+            <option value="normal">Normal</option>
+            <option value="fighting">Lutador</option>
+            <option value="flying">Voador</option>
+            <option value="poison">Venenoso</option>
+            <option value="ground">Terra</option>
+            <option value="rock">Pedra</option>
+            <option value="bug">Inseto</option>
+            <option value="ghost">Fantasma</option>
+            <option value="steel">Aço</option>
+        </select>
+        <div id="resultadoTipo" class="resultado-tipo"></div>
+    </div>
     <div class="botoes-container">
         <button id="btnReiniciar">Nova Busca</button>
         <button id="btnLimparHistorico">Limpar Histórico</button>
