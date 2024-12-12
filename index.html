@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Buscador de Pokemon</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+
+<body>
+    <div class="historico-container">
+        <button id="btnHistorico">Histórico de Pesquisas ▼</button>
+        <ul id="listaHistorico" class="historico-lista"></ul>
+    </div>
+    <input type="text" id="busca" placeholder="Insira o nome do Pokémon ou habilidade e aperte enter">
+    <div id="info"></div>
+    <div id="modo-busca">
+        <label>
+            <input type="radio" name="modo" value="nome" checked> Buscar por Nome
+        </label>
+        <label>
+            <input type="radio" name="modo" value="habilidade"> Buscar por Habilidade
+        </label>
+    </div>
+    <div id="mensagem-erro"></div>
+    <div class="botoes-container">
+        <button id="btnReiniciar">Nova Busca</button>
+        <button id="btnLimparHistorico">Limpar Histórico</button>
+    </div>
+    <script src='main.js'></script>
+</body>
+
+</html>

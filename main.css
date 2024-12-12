@@ -1,0 +1,338 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #333;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+#busca {
+    width: 100%;
+    padding: 20px;
+    font-size: 2em;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid #555;
+    text-align: center;
+    color: yellow;
+    margin-bottom: 20px;
+}
+
+#info {
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    display: none;
+    text-align: center;
+    background-color: #444;
+}
+
+#info img {
+    max-width: 200px;
+    height: auto;
+    margin: 15px 0;
+}
+
+#info h1 {
+    color: #FFD700;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+}
+
+#info p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Estilização do modo de busca */
+#modo-busca {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: #444;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#modo-busca label {
+    display: inline-block;
+    margin: 0 15px;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+#modo-busca label:hover {
+    background-color: #555;
+}
+
+/* Estilização dos radio buttons */
+#modo-busca input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #FFD700;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
+}
+
+#modo-busca input[type="radio"]:checked {
+    background-color: #FFD700;
+    box-shadow: 0 0 5px #FFD700;
+}
+
+#modo-busca input[type="radio"]:hover {
+    border-color: #FFF;
+}
+
+/* Estilização do botão de reiniciar */
+#btnReiniciar {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #FFD700;
+    color: #333;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#btnReiniciar:hover {
+    background-color: #FFF;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+#btnReiniciar:active {
+    transform: translateY(1px);
+}
+
+/* Estilização do histórico */
+.historico-container {
+    width: 200px;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#btnHistorico {
+    width: 100%;
+    padding: 10px;
+    background-color: #FFD700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+#btnHistorico:hover {
+    background-color: #FFF;
+    transform: translateY(-2px);
+}
+
+.historico-lista {
+    display: none;
+    list-style: none;
+    background-color: #444;
+    border-radius: 5px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.historico-lista.mostrar {
+    display: block;
+}
+
+.historico-lista li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #555;
+    color: white;
+    transition: background-color 0.3s;
+    text-transform: capitalize;
+}
+
+.historico-lista li:hover {
+    background-color: #555;
+}
+
+.historico-lista li:last-child {
+    border-bottom: none;
+}
+
+.historico-lista::-webkit-scrollbar {
+    width: 8px;
+}
+
+.historico-lista::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.historico-lista::-webkit-scrollbar-thumb {
+    background: #FFD700;
+    border-radius: 4px;
+}
+
+.historico-lista::-webkit-scrollbar-thumb:hover {
+    background: #FFF;
+}
+
+/* Estilização da mensagem de erro */
+#mensagem-erro {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 15px;
+    text-align: center;
+    color: #ff6b6b;
+    display: none;
+    background-color: rgba(255, 107, 107, 0.1);
+    border-radius: 8px;
+    border: 1px solid #ff6b6b;
+}
+
+.evolucoes {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #3a3a3a;
+    border-radius: 10px;
+}
+
+.evolucoes h2 {
+    color: #FFD700;
+    margin-bottom: 20px;
+}
+
+.evolucoes-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.evolucao-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #444;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.evolucao-item:hover {
+    transform: translateY(-5px);
+    background-color: #555;
+}
+
+.evolucao-item:active {
+    transform: translateY(-2px);
+}
+
+.evolucao-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.nome-evolucao {
+    margin-top: 5px;
+    text-transform: capitalize;
+    color: #fff;
+}
+
+.seta {
+    color: #FFD700;
+    font-size: 24px;
+    margin: 0 10px;
+    align-self: center;
+}
+
+.pokemon-principal {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin: 20px 0;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 600px) {
+    .evolucoes-container {
+        flex-direction: column;
+    }
+    
+    .seta {
+        transform: rotate(90deg);
+        margin: 10px 0;
+    }
+}
+
+.botoes-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+}
+
+#btnLimparHistorico {
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#btnLimparHistorico:hover {
+    background-color: #666;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+#btnLimparHistorico:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Ajuste do botão reiniciar para manter consistência */
+#btnReiniciar {
+    margin: 0;
+}
