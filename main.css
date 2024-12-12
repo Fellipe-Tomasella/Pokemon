@@ -1,3 +1,12 @@
+:root {
+    --cor-primaria: #FFD700;
+    --cor-secundaria: #333;
+    --cor-fundo: #444;
+    --cor-texto: #fff;
+    --espacamento-padrao: 20px;
+    --borda-radius: 10px;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -6,58 +15,39 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #333;
-    color: white;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto);
     min-height: 100vh;
+    padding: 10px;
     overflow-x: hidden;
 }
 
 #busca {
     width: 100%;
-    padding: 20px;
-    font-size: 2em;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    font-size: clamp(1rem, 4vw, 2rem);
     background-color: transparent;
     border: 0;
     border-bottom: 2px solid #555;
     text-align: center;
-    color: yellow;
-    margin-bottom: 20px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+    color: var(--cor-primaria);
 }
 
 #info {
-    width: 90%;
+    width: 100%;
     max-width: 600px;
-    padding: 20px;
     margin: 20px auto;
-    border: 1px solid #000;
-    border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-    display: none;
-    text-align: center;
-    background-color: #444;
+    padding: 15px;
 }
 
-#info img {
+#info img.pokemon-principal {
+    width: 100%;
     max-width: 200px;
     height: auto;
-    margin: 15px 0;
 }
 
-#info h1 {
-    color: #FFD700;
-    text-transform: capitalize;
-    margin-bottom: 15px;
-}
-
-#info p {
-    margin: 10px 0;
-    line-height: 1.5;
-}
-
-/* Estilização do modo de busca */
 #modo-busca {
     width: 90%;
     max-width: 500px;
@@ -82,7 +72,6 @@ body {
     background-color: #555;
 }
 
-/* Estilização dos radio buttons */
 #modo-busca input[type="radio"] {
     appearance: none;
     -webkit-appearance: none;
@@ -105,7 +94,6 @@ body {
     border-color: #FFF;
 }
 
-/* Estilização do botão de reiniciar */
 #btnReiniciar {
     display: block;
     margin: 20px auto;
@@ -133,41 +121,22 @@ body {
     transform: translateY(1px);
 }
 
-/* Estilização do histórico */
 .historico-container {
-    width: 200px;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 10px auto;
 }
 
 #btnHistorico {
     width: 100%;
     padding: 10px;
-    background-color: #FFD700;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #333;
-    transition: all 0.3s ease;
-}
-
-#btnHistorico:hover {
-    background-color: #FFF;
-    transform: translateY(-2px);
+    font-size: clamp(0.8rem, 3vw, 1rem);
 }
 
 .historico-lista {
-    display: none;
-    list-style: none;
-    background-color: #444;
-    border-radius: 5px;
-    margin-top: 5px;
+    width: 100%;
     max-height: 300px;
-    overflow-y: auto;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .historico-lista.mostrar {
@@ -208,7 +177,6 @@ body {
     background: #FFF;
 }
 
-/* Estilização da mensagem de erro */
 #mensagem-erro {
     width: 90%;
     max-width: 500px;
@@ -236,21 +204,17 @@ body {
 
 .evolucoes-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
 }
 
 .evolucao-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    background-color: #444;
-    border-radius: 8px;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+    max-width: 150px;
 }
 
 .evolucao-item:hover {
@@ -263,9 +227,9 @@ body {
 }
 
 .evolucao-item img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
+    width: 100%;
+    max-width: 100px;
+    height: auto;
 }
 
 .nome-evolucao {
@@ -288,113 +252,75 @@ body {
     margin: 20px 0;
 }
 
-/* Ajuste para telas menores */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+    }
+
+    #info {
+        padding: 10px;
+    }
+
     .evolucoes-container {
         flex-direction: column;
     }
-    
-    .seta {
-        transform: rotate(90deg);
-        margin: 10px 0;
+
+    .evolucao-item {
+        width: 100%;
+        max-width: none;
     }
 }
 
-.botoes-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 600px;
-}
-
-#btnLimparHistorico {
-    padding: 12px 30px;
-    font-size: 1.2em;
-    background-color: #555;
-    color: #fff;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-#btnLimparHistorico:hover {
-    background-color: #666;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-
-#btnLimparHistorico:active {
-    transform: translateY(1px);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-}
-
-/* Ajuste do botão reiniciar para manter consistência */
-#btnReiniciar {
-    margin: 0;
-}
-
-/* Ajuste do container do histórico para dispositivos móveis */
-@media (max-width: 768px) {
-    .historico-container {
-        position: static; /* Remove o position fixed */
-        width: 90%;
-        margin: 10px auto;
-    }
-
-    #btnHistorico {
-        font-size: 0.9em;
-        padding: 8px;
-    }
-
-    .historico-lista {
-        position: absolute;
-        width: 90%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-    }
-
-    #busca {
-        font-size: 1.2em;
-        padding: 15px 15px 25px;
-    }
-    #busca::placeholder {
-        font-size: 0.9em;
-    }
-}
-
-/* Ajuste adicional para telas muito pequenas */
 @media (max-width: 480px) {
-    #modo-busca label {
-        display: block;
-        margin: 10px 0;
-    }
-
     .botoes-container {
         flex-direction: column;
     }
 
-    #btnReiniciar,
-    #btnLimparHistorico {
+    .botoes-container button {
         width: 100%;
-        margin: 5px 0;
-        font-size: 1em;
-        padding: 10px;
     }
 
-    #busca {
-        font-size: 1em;
-        padding: 12px 12px 20px;
+    #modo-busca {
+        flex-direction: column;
+        align-items: stretch;
     }
-    #busca::placeholder {
-        font-size: 0.8em;
+
+    #modo-busca label {
+        margin: 5px 0;
+    }
+
+    .resultado-tipo {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+}
+
+@media (max-width: 320px) {
+    .resultado-tipo {
+        grid-template-columns: 1fr;
+    }
+
+    #info h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .resultado-tipo {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --cor-secundaria: #222;
+        --cor-fundo: #333;
     }
 }
 
@@ -427,11 +353,89 @@ body {
     transform: translateY(1px);
 }
 
-/* Ajuste adicional para telas muito pequenas */
+#btnLimparHistorico {
+    padding: 12px 30px;
+    font-size: 1.2em;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#btnLimparHistorico:hover {
+    background-color: #666;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+#btnLimparHistorico:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+#btnReiniciar {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .historico-container {
+        position: static;
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    #btnHistorico {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .historico-lista {
+        position: absolute;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    #busca {
+        font-size: 1.2em;
+        padding: 15px 15px 25px;
+    }
+    #busca::placeholder {
+        font-size: 0.9em;
+    }
+}
+
 @media (max-width: 480px) {
-    #btnBuscar {
+    #modo-busca label {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .botoes-container {
+        flex-direction: column;
+    }
+
+    #btnReiniciar,
+    #btnLimparHistorico {
+        width: 100%;
+        margin: 5px 0;
         font-size: 1em;
-        padding: 12px;
+        padding: 10px;
+    }
+
+    #busca {
+        font-size: 1em;
+        padding: 12px 12px 20px;
+    }
+    #busca::placeholder {
+        font-size: 0.8em;
     }
 }
 
@@ -442,13 +446,10 @@ body {
 }
 
 .tipo-busca-container {
-    width: 90%;
+    width: 100%;
     max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #444;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin: 20px auto;
+    padding: 15px;
 }
 
 .tipo-busca-container h2 {
@@ -460,21 +461,7 @@ body {
 .select-tipo {
     width: 100%;
     padding: 12px;
-    font-size: 1.2em;
-    background-color: #333;
-    border: 2px solid #FFD700;
-    border-radius: 8px;
-    color: #fff;
-    margin-bottom: 20px;
-    cursor: pointer;
-    text-align: center;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1em;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
 }
 
 .select-tipo:focus {
@@ -489,15 +476,15 @@ body {
 }
 
 .resultado-tipo {
-    display: none;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 10px;
 }
 
 .pokemon-tipo-card {
     background-color: #333;
-    padding: 15px;
+    padding: 10px;
     border-radius: 8px;
     text-align: center;
     cursor: pointer;
@@ -509,9 +496,9 @@ body {
 }
 
 .pokemon-tipo-card img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
+    width: 100%;
+    max-width: 100px;
+    height: auto;
 }
 
 .pokemon-tipo-card h3 {
@@ -533,17 +520,6 @@ body {
     .select-tipo {
         font-size: 1em;
     }
-}
-
-/* Variáveis CSS */
-:root {
-    --cor-primaria: #FFD700;
-    --cor-secundaria: #333;
-    --cor-fundo: #444;
-    --cor-texto: #fff;
-    --cor-erro: #ff6b6b;
-    --borda-radius: 10px;
-    --sombra-padrao: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 /* Loading Spinner */
