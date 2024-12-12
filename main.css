@@ -331,8 +331,8 @@ body {
     margin: 10px auto 20px;
     padding: 15px;
     font-size: 1.2em;
-    background-color: #FFD700;
-    color: #333;
+    background-color: var(--cor-primaria);
+    color: var(--cor-secundaria);
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -340,7 +340,7 @@ body {
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: var(--sombra-padrao);
 }
 
 #btnBuscar:hover {
