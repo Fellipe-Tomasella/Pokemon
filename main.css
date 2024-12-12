@@ -40,12 +40,17 @@ body {
     max-width: 600px;
     margin: 20px auto;
     padding: 15px;
+    text-align: center;
+    background-color: var(--cor-secundaria);
+    border-radius: var(--borda-radius);
 }
 
 #info img.pokemon-principal {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin: 10px auto;
+    display: block;
 }
 
 #modo-busca {
@@ -124,11 +129,10 @@ body {
 }
 
 .historico-container {
-    position: relative;
-    width: 90%;
+    width: 100%;
     max-width: 600px;
     margin: 10px auto;
-    z-index: 100;
+    position: relative;
 }
 
 #btnHistorico {
@@ -143,30 +147,29 @@ body {
 }
 
 .historico-lista {
+    display: none;
     width: 100%;
     max-height: 300px;
-    background-color: var(--cor-secundaria);
-    border-radius: var(--borda-radius);
+    background-color: #444;
+    border-radius: 10px;
     overflow-y: auto;
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
+    margin-top: 5px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    z-index: 1000;
 }
 
 .historico-lista.mostrar {
     display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
 }
 
 .historico-lista li {
-    padding: 10px;
-    cursor: pointer;
+    padding: 12px 15px;
     border-bottom: 1px solid #555;
+    cursor: pointer;
     color: white;
-    transition: background-color 0.3s;
     text-transform: capitalize;
 }
 
@@ -223,16 +226,15 @@ body {
 .evolucoes-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
     justify-content: center;
     align-items: center;
-    margin: 15px 0;
+    gap: 20px;
+    margin: 20px 0;
 }
 
 .evolucao-item {
-    flex: 1;
-    min-width: 120px;
-    max-width: 150px;
+    text-align: center;
+    flex: 0 1 120px;
 }
 
 .evolucao-item:hover {
@@ -245,9 +247,9 @@ body {
 }
 
 .evolucao-item img {
-    width: 100%;
-    max-width: 100px;
-    height: auto;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }
 
 .nome-evolucao {
@@ -277,33 +279,36 @@ body {
 
     #info {
         padding: 10px;
+        margin: 10px auto;
+    }
+
+    #info img.pokemon-principal {
+        width: 150px;
+        height: 150px;
     }
 
     .evolucoes-container {
         flex-direction: column;
+        gap: 10px;
     }
 
     .evolucao-item {
         width: 100%;
         max-width: none;
+        flex: 0 1 100px;
+    }
+
+    .evolucao-item img {
+        width: 80px;
+        height: 80px;
     }
 
     .historico-container {
-        position: relative;
-        width: 90%;
-        margin: 10px auto;
+        margin: 5px auto;
     }
 
     .historico-lista {
-        position: absolute;
-        width: 100%;
         max-height: 50vh;
-        top: 100%;
-    }
-
-    #btnHistorico {
-        font-size: 0.9em;
-        padding: 8px;
     }
 }
 
@@ -327,6 +332,24 @@ body {
 
     .resultado-tipo {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    #info h1 {
+        font-size: 1.5rem;
+    }
+
+    #info img.pokemon-principal {
+        width: 120px;
+        height: 120px;
+    }
+
+    .evolucao-item {
+        flex: 0 1 80px;
+    }
+
+    .evolucao-item img {
+        width: 60px;
+        height: 60px;
     }
 }
 
@@ -632,4 +655,25 @@ body {
         position: static;
         margin: 10px auto;
     }
+}
+
+/* Ajuste do z-index para garantir que o histórico fique sobre outros elementos */
+#modo-busca,
+.tipo-busca-container,
+.botoes-container {
+    position: relative;
+    z-index: 1;
+}
+
+.historico-container {
+    z-index: 1000;
+}
+
+/* Espaçamento entre elementos */
+#busca,
+#btnBuscar,
+#modo-busca,
+.tipo-busca-container,
+.botoes-container {
+    margin-bottom: 15px;
 }
