@@ -336,3 +336,50 @@ body {
 #btnReiniciar {
     margin: 0;
 }
+
+/* Ajuste do container do histórico para dispositivos móveis */
+@media (max-width: 768px) {
+    .historico-container {
+        position: static; /* Remove o position fixed */
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    #btnHistorico {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .historico-lista {
+        position: absolute;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+    }
+
+    #busca {
+        font-size: 1.5em;
+        padding: 15px;
+    }
+}
+
+/* Ajuste adicional para telas muito pequenas */
+@media (max-width: 480px) {
+    #modo-busca label {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .botoes-container {
+        flex-direction: column;
+    }
+
+    #btnReiniciar,
+    #btnLimparHistorico {
+        width: 100%;
+        margin: 5px 0;
+        font-size: 1em;
+        padding: 10px;
+    }
+}
