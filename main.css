@@ -15,24 +15,27 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--cor-secundaria);
-    color: var(--cor-texto);
+    background-color: #333;
+    color: #fff;
     min-height: 100vh;
-    padding: 10px;
+    padding: 20px;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #busca {
     width: 100%;
     max-width: 600px;
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 15px;
-    font-size: clamp(1rem, 4vw, 2rem);
+    font-size: 1.2em;
     background-color: transparent;
     border: 0;
     border-bottom: 2px solid #555;
     text-align: center;
-    color: var(--cor-primaria);
+    color: #FFD700;
 }
 
 #info {
@@ -57,13 +60,10 @@ body {
     width: 90%;
     max-width: 500px;
     margin: 20px auto;
-    text-align: center;
+    padding: 20px;
     background-color: #444;
-    padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 1;
+    text-align: center;
 }
 
 #modo-busca label {
@@ -129,19 +129,18 @@ body {
 }
 
 .historico-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 10px auto;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
     position: relative;
 }
 
 #btnHistorico {
     width: 100%;
-    padding: 10px;
-    font-size: 1rem;
+    padding: 12px;
     background-color: #fff;
     border: none;
-    border-radius: var(--borda-radius);
+    border-radius: 10px;
     cursor: pointer;
     margin-bottom: 10px;
 }
@@ -153,16 +152,19 @@ body {
     background-color: #444;
     border-radius: 10px;
     overflow-y: auto;
-    margin-top: 5px;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 1000;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .historico-lista.mostrar {
     display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    top:3.4em;
+    padding: 10px;
 }
 
 .historico-lista li {
@@ -274,7 +276,7 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding: 5px;
+        padding: 10px;
     }
 
     #info {
@@ -308,7 +310,24 @@ body {
     }
 
     .historico-lista {
+        position: fixed;
+        bottom: 0;
+        left: 5%;
+        width: 90%;
         max-height: 50vh;
+        top: auto;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .botoes-container {
+        flex-direction: column;
+    }
+
+    #btnReiniciar,
+    #btnLimparHistorico {
+        width: 100%;
+        margin: 5px 0;
     }
 }
 
@@ -375,7 +394,6 @@ body {
         transition: none !important;
     }
 }
-
 @media (prefers-color-scheme: dark) {
     :root {
         --cor-secundaria: #222;
@@ -387,7 +405,7 @@ body {
     display: block;
     width: 90%;
     max-width: 400px;
-    margin: 10px auto 20px;
+    margin: 20px auto;
     padding: 15px;
     font-size: 1.2em;
     background-color: var(--cor-primaria);
@@ -439,7 +457,7 @@ body {
 }
 
 #btnReiniciar {
-    margin: 0;
+    margin: 15px auto;
 }
 
 @media (max-width: 768px) {
@@ -486,7 +504,7 @@ body {
         width: 100%;
         margin: 5px 0;
         font-size: 1em;
-        padding: 10px;
+        padding: 10%;
     }
 
     #busca {
@@ -505,12 +523,10 @@ body {
 }
 
 .tipo-busca-container {
-    width: 100%;
-    max-width: 600px;
+    width: 90%;
+    max-width: 500px;
     margin: 20px auto;
-    padding: 15px;
-    position: relative;
-    z-index: 1;
+    text-align: center;
 }
 
 .tipo-busca-container h2 {
@@ -522,7 +538,8 @@ body {
 .select-tipo {
     width: 100%;
     padding: 12px;
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    margin: 10px 0;
+    font-size: 1.1em;
 }
 
 .select-tipo:focus {

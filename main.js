@@ -353,7 +353,7 @@ async function buscarPokemonsPorTipo(tipo) {
         // Pegar os primeiros 10 Pokémon
         const top10Pokemons = await Promise.all(
             data.pokemon
-                .slice(0, 10)
+                .slice(0, 30)
                 .map(async (p) => {
                     const pokemonResponse = await fetch(p.pokemon.url);
                     return pokemonResponse.json();
