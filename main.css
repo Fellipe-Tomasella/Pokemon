@@ -143,6 +143,8 @@ body {
     border-radius: 10px;
     cursor: pointer;
     margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
 }
 
 .historico-lista {
@@ -153,7 +155,7 @@ body {
     border-radius: 10px;
     overflow-y: auto;
     position: absolute;
-    top: calc(100% + 5px);
+    top: 100%;
     left: 0;
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -161,10 +163,6 @@ body {
 
 .historico-lista.mostrar {
     display: block;
-    flex-direction: column;
-    align-items: center;
-    top:3.4em;
-    padding: 10px;
 }
 
 .historico-lista li {
@@ -173,6 +171,7 @@ body {
     cursor: pointer;
     color: white;
     text-transform: capitalize;
+    list-style: none;
 }
 
 .historico-lista li:hover {
@@ -306,18 +305,24 @@ body {
     }
 
     .historico-container {
-        margin: 5px auto;
+        position: relative;
+        width: 90%;
+        margin: 10px auto;
     }
 
     .historico-lista {
-        position: fixed;
-        bottom: 0;
-        left: 5%;
-        width: 90%;
-        max-height: 50vh;
-        top: auto;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        position: absolute;
+        width: 100%;
+        max-height: 200px;
+        top: 100%;
+        left: 0;
+        border-radius: 10px;
+        background-color: #444;
+        z-index: 1000;
+    }
+
+    .historico-lista.mostrar {
+        display: block;
     }
 
     .botoes-container {
